@@ -1,0 +1,20 @@
+name: Python application
+
+on:
+  push:
+   branches: [ master ]
+  pull_request:
+    branches: [ master ]
+      
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build & Push Image
+      run: |
+        echo "${{ secrets.DOCKERPW }}" | docker login -u "vindhya1718" --password-stdin
+        docker image build -t vindhya1718/my-django-app
+        docker push vindhya1718/my-django-app
