@@ -1,14 +1,15 @@
-FROM python:3.4
+FROM python:2.7-alpine
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        postgresql-client \
-    && rm -rf /var/lib/apt/lists/*
+RUN mkdir /app
+WORKDIR /app
 
-WORKDIR /usr/src/app
-COPY requirements.txt ./
-RUN pip freeze>requirements.txt
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+
 COPY . .
 
-EXPOSE 8000
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+RUN python manage.py collectstatic --noinput
+
+LABEL maintainer="vindhya <vindhyacharita.com>"
+
+CMD gunicorn -c gunicorn.py "hello.wsgi:application"]
