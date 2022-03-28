@@ -1,29 +1,25 @@
 name: Python application
-
-on:
-  push:
-   branches: [ main ]
-  pull_request:
-    branches: [ main ]
-      
+on: push
 jobs:
-  build:
-
+  build-container:
+    name: Build Docker container image
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v1
-    with:
-    username: ${{ secrets.DOCKER_USERNAME }}
-    password: ${{ secrets.DOCKER_PASSWORD }}
-    repository: vindhya17/webnext
-    tags: latest, ${{ github.run_number }}
-     name: Publish to GitHub Packages
-  uses: docker/build-push-action@v1
-  with:
-    username: ${{ github.actor }}
-    password: ${{ secrets.GITHUB_TOKEN }}
-    registry: docker.pkg.github.com
-    repository: ${{ github.repository }}/webnext
-    tags: latest, ${{ github.run_number }}
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: publish to Github packages
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+         repository: ${{ github.repository }}/vindhya1718
+         tags: latest, ${{ github.run_number }}
+      - name: Publish to Docker Hub
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: vindhya1718/vindhya17
+          tags: latest, ${{ github.run_number }}
       
