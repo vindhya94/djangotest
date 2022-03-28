@@ -16,5 +16,5 @@ jobs:
     - name: Build & Push Image
       run: |
         echo "${{ secrets.DOCKERPW }}" | docker login -u "vindhya1718" --password-stdin
-        docker image build -t vindhya1718/my-django-app
-        docker push vindhya1718/my-django-app
+        docker image build -t vindhya1718/django
+        docker push vindhya1718/django
