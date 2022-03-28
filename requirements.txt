@@ -1,2 +1,2 @@
-DJANGO==1.10.6
-gunicorn==19.7
+DJANGO==1.10
+
