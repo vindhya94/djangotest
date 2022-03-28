@@ -1,2 +1,2 @@
-DJANGO==2.2
+DJANGO==1.10
 
