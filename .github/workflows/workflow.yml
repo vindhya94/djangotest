@@ -1,20 +1,24 @@
 name: Python application
-
-on:
-  push:
-   branches: [ main ]
-  pull_request:
-    branches: [ main ]
-      
+on: push
 jobs:
-  build:
-
+  build-container:
+    name: Build Docker container image
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v1
-    - name: Build & Push Image
-      run: |
-        echo "${{ secrets.DOCKERPW }}" | docker login -u "vindhya1718" --password-stdin
-        docker image build -t vindhya1718/gitaction:v1 .
-        docker push vindhya1718/gitaction:v1
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: publish to Github packages
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: https://hub.docker.com/
+          repository: ${{ github.repository }}/vindhya1718/vindhya17
+          tags: latest, ${{ github.run_number }}
+      - name: Publish to Docker Hub
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: vindhya1718/vindhya17
+          tags: latest, ${{ github.run_number }}
