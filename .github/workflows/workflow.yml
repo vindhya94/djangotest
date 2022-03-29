@@ -12,7 +12,7 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          registry: https://hub.docker.com/
+          registry: hub.docker.com
           repository: ${{ github.repository }}/vindhya1718/vindhya17
           tags: latest, ${{ github.run_number }}
       - name: Publish to Docker Hub
