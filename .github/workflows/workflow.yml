@@ -2,7 +2,7 @@ name: Python application
 on: push
 jobs:
   build-container:
-    name: Build Docker container image
+    name: Build Docker container imagee
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
