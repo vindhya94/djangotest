@@ -8,12 +8,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: publish to Github packages
-        uses: docker/build-push-action@v1
+        uses: docker/build-push-action@v2
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: ${{ github.repository }}/vindhya1718/vindhya17
+          repository: ${{ github.repository }}/vindhya17
           tags: latest, ${{ github.run_number }}
       - name: Publish to Docker Hub
         uses: docker/build-push-action@v1
