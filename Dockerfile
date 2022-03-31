@@ -5,4 +5,4 @@ WORKDIR /app
 COPY requirements.txt /app/
 RUN pip install -r requirements.txt
 COPY . /app/
-CMD 
+CMD ["/bin/sh" "-c" "manage.py"]
